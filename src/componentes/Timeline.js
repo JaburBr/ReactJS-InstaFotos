@@ -5,18 +5,18 @@ export default class Timeline extends Component {
 
     url = 'http://localhost:8080/api/public/fotos/alots';
 
-    constructor(){
+    constructor() {
         super();
-        this.state = {fotos: []}
+        this.state = { fotos: [] }
     }
-    
-    componentDidMount(){
+
+    componentDidMount() {
 
         fetch(this.url)
             .then(response => response.json())
             .then(fotos => {
                 console.log(fotos);
-                this.setState({fotos:fotos});
+                this.setState({ fotos: fotos });
             })
             .catch(err => console.log(err));
 
@@ -25,8 +25,7 @@ export default class Timeline extends Component {
     render() {
         return (
             <div className="fotos container">
-                <Foto />
-                <Foto />
+                {this.state.fotos.map(item => <Foto key={item.id} foto={item} />)}
             </div>
         );
     }

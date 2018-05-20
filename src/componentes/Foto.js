@@ -10,11 +10,11 @@ class FotoHeader extends Component {
                     <img src="https://avatars2.githubusercontent.com/u/19942158?s=40&v=4" alt="foto do usuario" />
                     <figcaption className="foto-usuario">
                         <a href="#">
-                            alots
+                            {this.props.foto.loginUsuario}
                         </a>
                     </figcaption>
                 </figure>
-                <time className="foto-data">03/10/2016 20:13</time>
+                <time className="foto-data">{this.props.foto.horario}</time>
             </header>
         );
     }
@@ -27,14 +27,12 @@ class FotoInfo extends Component {
         return (
             <div className="foto-info">
                 <div className="foto-info-likes">
-                    <a href="#">
-                        alots_ssa
-                    </a>
-                    ,
 
-                    <a href="#">
-                        rafael_rollo
-                    </a>
+                    {this.props.foto.likers.map(liker => {
+                        return (
+                            <a href="#"> {liker.login}, </a>
+                        )
+                    })}
 
                     curtiram
 
@@ -42,22 +40,22 @@ class FotoInfo extends Component {
 
                 <p className="foto-info-legenda">
                     <a className="foto-info-autor">autor </a>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, illo?
+                    {this.props.foto.comentario}
                 </p>
 
                 <ul className="foto-info-comentarios">
-                    <li className="comentario">
-                        <a className="foto-info-autor">seguidor </a>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem ad, molestiae.
-                    </li>
-                    <li className="comentario">
-                        <a className="foto-info-autor">seguidor </a>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt cumque earum molestias voluptatem modi nihil sit magnam ratione eveniet distinctio magni error asperiores dignissimos tempora expedita, laborum ex soluta hic maiores veritatis deserunt.
-                    </li>
-                    <li className="comentario">
-                        <a className="foto-info-autor">seguidor </a>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum laudantium quae ab fuga odio delectus maiores voluptatibus sit commodi quidem.
-                    </li>
+
+                    {this.props.foto.comentarios.map(item => {
+                        return (
+
+                            <li className="comentario">
+                                <a className="foto-info-autor">{item.login}</a>
+                                {item.texto}
+                            </li>
+
+                        )
+                    })}
+
                 </ul>
             </div>
         );
@@ -87,11 +85,15 @@ export default class Foto extends Component {
         return (
             <div className="foto">
 
-                <FotoHeader />
+                <FotoHeader foto={this.props.foto} />
 
+                <img alt="foto" className="foto-src" src={this.props.foto.urlFoto} />
+
+                {/* 
                 <img alt="foto" className="foto-src" src="https://instagram.fcgh10-1.fna.fbcdn.net/t51.2885-15/e35/14482111_1635089460122802_8984023070045896704_n.jpg?ig_cache_key=MTM1MzEzNjM4NzAxMjIwODUyMw%3D%3D.2" />
+                */}
 
-                <FotoInfo />
+                <FotoInfo foto={this.props.foto} />
                 <FotoAtualizacoes />
 
             </div>
